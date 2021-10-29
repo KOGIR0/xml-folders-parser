@@ -22,12 +22,10 @@ public class CmdOptions extends Options {
 
     public SearchOptions getSearchOptions() {
         inputFilePath = new StringBuilder(cmd.getOptionValue("file"));
-        if(cmd.getOptionValue("search") != null) {
-            searchValue = new StringBuilder(cmd.getOptionValue("search"));
-        }
         SearchType searchType;
 
         if(cmd.hasOption("-s")) {
+            searchValue = new StringBuilder(cmd.getOptionValue("search"));
             // if contains apostrophe, remove it and search by mask, otherwise search by equality
             if(searchValue.charAt(0) == Constants.APOSTROPHE1) {
                 searchValue.deleteCharAt(0);
@@ -37,6 +35,7 @@ public class CmdOptions extends Options {
                 searchType =  SearchType.Equals;
             }
         } else if(cmd.hasOption("-S")) {
+            searchValue = new StringBuilder(cmd.getOptionValue("Search"));
             searchType = SearchType.Regular;
         } else {
             searchType = SearchType.Full;
