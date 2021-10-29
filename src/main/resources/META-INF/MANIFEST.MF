@@ -1,1 +1,1 @@
-Main-Class: com.xml.parser.Main
+Main-Class: Main
