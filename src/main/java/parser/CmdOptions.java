@@ -22,7 +22,9 @@ public class CmdOptions extends Options {
 
     public SearchOptions getSearchOptions() {
         inputFilePath = new StringBuilder(cmd.getOptionValue("file"));
-        searchValue = new StringBuilder(cmd.getOptionValue("search"));
+        if(cmd.getOptionValue("search") != null) {
+            searchValue = new StringBuilder(cmd.getOptionValue("search"));
+        }
         SearchType searchType;
 
         if(cmd.hasOption("-s")) {
@@ -38,6 +40,7 @@ public class CmdOptions extends Options {
             searchType = SearchType.Regular;
         } else {
             searchType = SearchType.Full;
+            return new SearchOptions(inputFilePath.toString(), null, searchType);
         }
         return new SearchOptions(inputFilePath.toString(), searchValue.toString(), searchType);
     }
