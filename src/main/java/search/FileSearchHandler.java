@@ -1,23 +1,23 @@
-package parser;
+package search;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
+import constant.Constants;
 
-public abstract class NodeParser extends DefaultHandler {
+import java.util.ArrayList;
+import java.util.List;
+
+public abstract class FileSearchHandler extends DefaultHandler {
+
     private StringBuilder currentValue = new StringBuilder();
-    private StringBuilder currentPath = new StringBuilder();
+    private List<String> currentPath = new ArrayList<>();
     private Boolean currentIsFile = false;
+    protected String searchValue;
 
     protected abstract Boolean Compare(String s);
 
-    @Override
-    public void startDocument() {
-        System.out.println("Document start");
-    }
-
-    @Override
-    public void endDocument() {
-        System.out.println("Document end");
+    public void setSearchValue(String value) {
+        this.searchValue = value;
     }
 
     @Override
@@ -29,11 +29,7 @@ public abstract class NodeParser extends DefaultHandler {
 
         currentValue.setLength(0);
 
-        if(qName.equalsIgnoreCase("node")) {
-            this.currentIsFile = Boolean.valueOf(attribute.getValue(Constants.IS_FILE));
-        }
-
-        if(qName.equalsIgnoreCase("child")) {
+        if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
             this.currentIsFile = Boolean.valueOf(attribute.getValue(Constants.IS_FILE));
         }
     }
@@ -44,23 +40,24 @@ public abstract class NodeParser extends DefaultHandler {
             String localName,
             String qName) {
 
-        if(qName.equalsIgnoreCase("name")) {
+        if(qName.equalsIgnoreCase(Constants.ACTIVE_NODE)) {
             if(this.currentIsFile) {
                 if(this.Compare(this.currentValue.toString())) {
-                    System.out.println(this.currentPath + Constants.SPLIT_DIR + this.currentValue);
+                    StringBuilder path = new StringBuilder();
+                    this.currentPath.forEach((item) -> path.append(Constants.SPLIT_DIR).append(item));
+                    path.append(Constants.SPLIT_DIR).append(this.currentValue);
+                    System.out.println(path);
                 }
             } else {
-                if(!this.currentValue.toString().equals("/")) {
-                    this.currentPath.append("/")
-                            .append(this.currentValue);
+                if(!this.currentValue.toString().equals(Constants.SPLIT_DIR)) {
+                    this.currentPath.add(this.currentValue.toString());
                 }
             }
         }
 
-        if(qName.equalsIgnoreCase("child")) {
+        if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
             if(!this.currentIsFile) {
-                int start = this.currentPath.lastIndexOf("/");
-                this.currentPath.delete(start, this.currentPath.length());
+                this.currentPath.remove(this.currentPath.size() - 1);
             } else {
                 this.currentIsFile = false;
             }

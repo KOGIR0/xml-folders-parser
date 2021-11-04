@@ -1,13 +1,13 @@
-package parser;
+package search;
 
-public class Find extends NodeParser{
+public class LambdaSearch extends FileSearchHandler {
     Comparer comparer;
 
     public interface Comparer {
         public Boolean compare(String a);
     }
 
-    public Find(Comparer c) {
+    public LambdaSearch(Comparer c) {
         this.comparer = c;
     }
 

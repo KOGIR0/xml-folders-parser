@@ -1,13 +1,10 @@
-package parser;
+package cmd;
+
+import constant.SearchType;
 
 public class SearchOptions {
     private String filePath, searchValue;
     private SearchType st;
-
-    public SearchOptions(String filePath) {
-        this.filePath = filePath;
-        this.st = SearchType.Full;
-    }
 
     public String getFilePath() {
         return filePath;

@@ -1,4 +1,4 @@
-package parser;
+package constant;
 
 public enum SearchType {
     Full,

@@ -1,6 +1,8 @@
-package parser;
+package cmd;
 
 import org.apache.commons.cli.*;
+import constant.Constants;
+import constant.SearchType;
 
 public class CmdOptions extends Options {
     private StringBuilder inputFilePath, searchValue;
@@ -24,7 +26,7 @@ public class CmdOptions extends Options {
         inputFilePath = new StringBuilder(cmd.getOptionValue("file"));
         SearchType searchType;
 
-        if(cmd.hasOption("-s")) {
+        if(cmd.hasOption(Constants.KEY_MACK)) {
             searchValue = new StringBuilder(cmd.getOptionValue("search"));
             // if contains apostrophe, remove it and search by mask, otherwise search by equality
             if(searchValue.charAt(0) == Constants.APOSTROPHE1) {
@@ -34,7 +36,7 @@ public class CmdOptions extends Options {
             } else {
                 searchType =  SearchType.Equals;
             }
-        } else if(cmd.hasOption("-S")) {
+        } else if(cmd.hasOption(Constants.KEY_MACK_REGULAR)) {
             searchValue = new StringBuilder(cmd.getOptionValue("Search"));
             searchType = SearchType.Regular;
         } else {

@@ -1,8 +1,9 @@
-package parser;
+package saxparser;
 
-import org.apache.commons.cli.HelpFormatter;
 import org.xml.sax.SAXException;
-import org.apache.commons.cli.ParseException;
+import cmd.SearchOptions;
+import search.FileSearchHandler;
+import search.XmlSearchFactory;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -14,7 +15,8 @@ public class SaxParser {
 
     public void parse(SearchOptions so) throws ParserConfigurationException, SAXException, IOException {
         SAXParser parser = factory.newSAXParser();
-        NodeParser handler = XmlSearchFactory.getSearchHandler(so);
+        FileSearchHandler handler = XmlSearchFactory.getSearchHandler(so.getSearchType());
+        handler.setSearchValue(so.getSearchValue());
         parser.parse(so.getFilePath(), handler);
     }
 }
