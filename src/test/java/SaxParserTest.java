@@ -23,7 +23,7 @@ public class SaxParserTest {
 
     @Test
     public void fullSearch() {
-        String[] args = {"-f", "src/main/java/resources/test-file1.xml"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml"};
         Main.main(args);
         assertEquals("""
                         /file-776194140.xml
@@ -35,7 +35,7 @@ public class SaxParserTest {
 
     @Test
     public void regexSearch() {
-        String[] args = {"-f", "src/main/java/resources/test-file1.xml", "-S", ".*?[a-z]{4}-\\d+\\.[a-z]+"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-S", ".*?[a-z]{4}-\\d+\\.[a-z]+"};
         Main.main(args);
         assertEquals("""
                         /file-776194140.xml
@@ -47,14 +47,14 @@ public class SaxParserTest {
 
     @Test
     public void exactSearch() {
-        String[] args = {"-f", "src/main/java/resources/test-file1.xml", "-s", "file-776194140.xml"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-776194140.xml"};
         Main.main(args);
         assertEquals("/file-776194140.xml\n", outContent.toString());
     }
 
     @Test
     public void maskSearch() {
-        String[] args = {"-f", "src/main/java/resources/test-file1.xml", "-s", "`.xml`"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`.xml`"};
         Main.main(args);
         assertEquals("/file-776194140.xml\n", outContent.toString());
     }
