@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SaxParserTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -57,5 +58,19 @@ public class SaxParserTest {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`.xml`"};
         Main.main(args);
         assertEquals("/file-776194140.xml\n", outContent.toString());
+    }
+
+    @Test
+    public void noArgs() {
+        String[] args = {};
+        Main.main(args);
+        assertTrue(outContent.toString().contains("Missing required option: f"));
+    }
+
+    @Test
+    public void wrongOption() {
+        String[] args = {"-F", "src/test/resources/test-file1.xml", "-O", "file-776194140.xml"};
+        Main.main(args);
+        assertTrue(outContent.toString().contains("Unrecognized option"));
     }
 }
