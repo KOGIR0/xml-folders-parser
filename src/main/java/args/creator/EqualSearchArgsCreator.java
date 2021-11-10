@@ -1,11 +1,11 @@
-package cmd.optionsCreator;
+package args.creator;
 
-import cmd.SearchOptions;
+import args.SearchArgs;
 import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class EqualsOptions implements  IOptionsCreator {
+public class EqualSearchArgsCreator extends ArgsCreator {
 
     @Override
     public Boolean matches(CommandLine cmd) {
@@ -17,8 +17,8 @@ public class EqualsOptions implements  IOptionsCreator {
     }
 
     @Override
-    public SearchOptions getOptions(CommandLine cmd) {
-        return new SearchOptions(
+    public SearchArgs createSearchArgs(CommandLine cmd) {
+        return new SearchArgs(
                 cmd.getOptionValue(Constants.OPTION_FILE),
                 cmd.getOptionValue(Constants.OPTION_SEARCH),
                 SearchType.Equals);

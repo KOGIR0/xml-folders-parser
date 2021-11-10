@@ -1,37 +1,37 @@
-package cmd;
+package args;
 
-import cmd.optionsCreator.*;
+import args.creator.*;
 import org.apache.commons.cli.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CmdOptions extends Options {
-    private CommandLine cmd;
-    List<IOptionsCreator> optionCreators = new ArrayList<>();
+public class ArgsParser extends Options {
+    private CommandLine args;
+    List<ArgsCreator> searchArgsCreators = new ArrayList<>();
 
-    public CmdOptions() {
+    public ArgsParser() {
         this.addFileOption();
         this.addSearchOption();
         this.addRegexSearchOption();
 
-        this.optionCreators.add(new EqualsOptions());
-        this.optionCreators.add(new MaskOptions());
-        this.optionCreators.add(new RegexOptions());
+        this.searchArgsCreators.add(new EqualSearchArgsCreator());
+        this.searchArgsCreators.add(new MaskSearchArgsCreator());
+        this.searchArgsCreators.add(new RegexSearchArgsCreator());
     }
 
     public void tryParseArgs(String[] cmdArgs) throws ParseException {
         CommandLineParser cmdParser = new DefaultParser();
-        this.cmd = cmdParser.parse(this, cmdArgs);
+        this.args = cmdParser.parse(this, cmdArgs);
     }
 
-    public SearchOptions getSearchOptions() {
-        for(IOptionsCreator creator: optionCreators) {
-            if(creator.matches(this.cmd)) {
-                return creator.getOptions(this.cmd);
+    public SearchArgs getSearchArgs() {
+        for(ArgsCreator creator: searchArgsCreators) {
+            if(creator.matches(this.args)) {
+                return creator.createSearchArgs(this.args);
             }
         }
-        return new FullOptions().getOptions(cmd);
+        return new FullSearchArgsCreator().createSearchArgs(args);
     }
 
     private void addFileOption() {

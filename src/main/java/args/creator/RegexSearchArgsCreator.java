@@ -1,19 +1,19 @@
-package cmd.optionsCreator;
+package args.creator;
 
-import cmd.SearchOptions;
+import args.SearchArgs;
 import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class RegexOptions implements IOptionsCreator {
+public class RegexSearchArgsCreator extends ArgsCreator {
     @Override
     public Boolean matches(CommandLine cmd) {
         return cmd.hasOption(Constants.KEY_MACK_REGULAR);
     }
 
     @Override
-    public SearchOptions getOptions(CommandLine cmd) {
-        return new SearchOptions(
+    public SearchArgs createSearchArgs(CommandLine cmd) {
+        return new SearchArgs(
                 cmd.getOptionValue(Constants.OPTION_FILE),
                 cmd.getOptionValue(Constants.OPTION_REGEX_SEARCH),
                 SearchType.Regular);

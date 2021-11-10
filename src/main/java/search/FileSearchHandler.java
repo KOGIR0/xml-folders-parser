@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class FileSearchHandler extends DefaultHandler {
-
+    
+    // move this logic to node parser
+    // add comparer to node parser
+    // rename search to comparer
     private StringBuilder currentValue = new StringBuilder();
     private List<String> currentPath = new ArrayList<>();
     private Boolean currentIsFile = false;

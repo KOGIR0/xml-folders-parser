@@ -1,7 +1,7 @@
 package saxparser;
 
 import org.xml.sax.SAXException;
-import cmd.SearchOptions;
+import args.SearchArgs;
 import search.FileSearchHandler;
 import search.XmlSearchFactory;
 
@@ -11,12 +11,15 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 public class SaxParser {
-    private SAXParserFactory factory = SAXParserFactory.newInstance();
-
-    public void parse(SearchOptions so) throws ParserConfigurationException, SAXException, IOException {
+    public void parse(SearchArgs so) throws ParserConfigurationException, SAXException, IOException {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        factory.setValidating(true);
+        factory.setNamespaceAware(false);
         SAXParser parser = factory.newSAXParser();
+
         FileSearchHandler handler = XmlSearchFactory.getSearchHandler(so.getSearchType());
         handler.setSearchValue(so.getSearchValue());
+
         parser.parse(so.getFilePath(), handler);
     }
 }

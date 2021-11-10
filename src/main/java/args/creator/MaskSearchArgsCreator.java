@@ -1,11 +1,11 @@
-package cmd.optionsCreator;
+package args.creator;
 
-import cmd.SearchOptions;
+import args.SearchArgs;
 import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class MaskOptions implements IOptionsCreator {
+public class MaskSearchArgsCreator extends ArgsCreator {
     public Boolean matches(CommandLine cmd) {
         StringBuilder searchValue;
         if(cmd.hasOption(Constants.KEY_MACK)) {
@@ -15,12 +15,12 @@ public class MaskOptions implements IOptionsCreator {
         return false;
     }
 
-    public SearchOptions getOptions(CommandLine cmd) {
+    public SearchArgs createSearchArgs(CommandLine cmd) {
         StringBuilder searchValue = new StringBuilder(cmd.getOptionValue(Constants.OPTION_SEARCH));
         searchValue.deleteCharAt(0);
         searchValue.deleteCharAt(searchValue.length() - 1);
 
-        return new SearchOptions(
+        return new SearchArgs(
                 cmd.getOptionValue(Constants.OPTION_FILE),
                 searchValue.toString(),
                 SearchType.Mask);

@@ -1,8 +1,8 @@
-package cmd;
+package args;
 
 import constant.SearchType;
 
-public class SearchOptions {
+public class SearchArgs {
     private String filePath, searchValue;
     private SearchType st;
 
@@ -14,7 +14,7 @@ public class SearchOptions {
         return searchValue;
     }
 
-    public SearchOptions(String filePath, String searchValue, SearchType st) {
+    public SearchArgs(String filePath, String searchValue, SearchType st) {
         this.filePath = filePath;
         this.searchValue = searchValue;
         this.st = st;
