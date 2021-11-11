@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class SaxParserTest {
+public class ParserTest {
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
     private final PrintStream originalOut = System.out;
 
@@ -26,38 +27,38 @@ public class SaxParserTest {
     public void fullSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml"};
         Main.main(args);
-        assertEquals("""
-                        /file-776194140.xml
-                        /dir-880176375/file-1073842118.java
-                        /dir-880176375/dir-2145307015/file-1498940214.xhtml
-                        """
-                , outContent.toString());
+        List<String> expected = List.of("/file-776194140.xml",
+                "/dir-880176375/file-1073842118.java",
+                "/dir-880176375/dir-2145307015/file-1498940214.xhtml"
+        );
+        assertEquals(expected, outContent.toString().lines().toList());
     }
 
     @Test
     public void regexSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-S", ".*?[a-z]{4}-\\d+\\.[a-z]+"};
         Main.main(args);
-        assertEquals("""
-                        /file-776194140.xml
-                        /dir-880176375/file-1073842118.java
-                        /dir-880176375/dir-2145307015/file-1498940214.xhtml
-                        """
-                , outContent.toString());
+        List<String> expected = List.of("/file-776194140.xml",
+                "/dir-880176375/file-1073842118.java",
+                "/dir-880176375/dir-2145307015/file-1498940214.xhtml"
+        );
+        assertEquals(expected, outContent.toString().lines().toList());
     }
 
     @Test
     public void exactSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-776194140.xml"};
         Main.main(args);
-        assertEquals("/file-776194140.xml\n", outContent.toString());
+        List<String> expected = List.of("/file-776194140.xml");
+        assertEquals(expected, outContent.toString().lines().toList());
     }
 
     @Test
     public void maskSearch() {
-        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`*.xml`"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`*.java`"};
         Main.main(args);
-        assertEquals("/file-776194140.xml\n", outContent.toString());
+        List<String> expected = List.of("/dir-880176375/file-1073842118.java");
+        assertEquals(expected, outContent.toString().lines().toList());
     }
 
     @Test
