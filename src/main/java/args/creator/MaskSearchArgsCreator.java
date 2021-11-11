@@ -16,6 +16,7 @@ public class MaskSearchArgsCreator extends ArgsCreator {
     }
 
     public SearchArgs createSearchArgs(CommandLine cmd) {
+        // add searchValue *, ? and else change
         StringBuilder searchValue = new StringBuilder(cmd.getOptionValue(Constants.OPTION_SEARCH));
         searchValue.deleteCharAt(0);
         searchValue.deleteCharAt(searchValue.length() - 1);

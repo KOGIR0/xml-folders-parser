@@ -1,9 +1,9 @@
 package saxparser;
 
+import comparer.Comparer;
+import comparer.ComparerFactory;
 import org.xml.sax.SAXException;
 import args.SearchArgs;
-import search.FileSearchHandler;
-import search.XmlSearchFactory;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -17,9 +17,11 @@ public class SaxParser {
         factory.setNamespaceAware(false);
         SAXParser parser = factory.newSAXParser();
 
-        FileSearchHandler handler = XmlSearchFactory.getSearchHandler(so.getSearchType());
-        handler.setSearchValue(so.getSearchValue());
+        NodeParser nodeParser = new NodeParser();
+        Comparer comparer = ComparerFactory.getComparer(so.getSearchType());
+        comparer.setCompareValue(so.getSearchValue());
+        nodeParser.setComparer(comparer);
 
-        parser.parse(so.getFilePath(), handler);
+        parser.parse(so.getFilePath(), nodeParser);
     }
 }
