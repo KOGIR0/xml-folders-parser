@@ -16,10 +16,11 @@ public class MaskSearchArgsCreator extends ArgsCreator {
     }
 
     public SearchArgs createSearchArgs(CommandLine cmd) {
-        // add searchValue *, ? and else change
-        StringBuilder searchValue = new StringBuilder(cmd.getOptionValue(Constants.OPTION_SEARCH));
-        searchValue.deleteCharAt(0);
-        searchValue.deleteCharAt(searchValue.length() - 1);
+        String searchValue = cmd.getOptionValue(Constants.OPTION_SEARCH);
+
+        searchValue = searchValue.substring(1, searchValue.length() - 1);
+        searchValue = searchValue.replace("*", ".*");
+        searchValue = searchValue.replace("?", ".");
 
         return new SearchArgs(
                 cmd.getOptionValue(Constants.OPTION_FILE),

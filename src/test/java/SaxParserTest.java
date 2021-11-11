@@ -55,7 +55,7 @@ public class SaxParserTest {
 
     @Test
     public void maskSearch() {
-        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`.xml`"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`*.xml`"};
         Main.main(args);
         assertEquals("/file-776194140.xml\n", outContent.toString());
     }
