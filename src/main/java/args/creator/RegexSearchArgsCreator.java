@@ -5,7 +5,7 @@ import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class RegexSearchArgsCreator extends ArgsCreator {
+public class RegexSearchArgsCreator extends SearchArgsCreator {
     @Override
     public Boolean matches(CommandLine cmd) {
         return cmd.hasOption(Constants.KEY_MACK_REGULAR);

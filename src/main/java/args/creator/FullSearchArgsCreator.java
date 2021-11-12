@@ -5,7 +5,7 @@ import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class FullSearchArgsCreator extends ArgsCreator {
+public class FullSearchArgsCreator extends SearchArgsCreator {
 
     @Override
     public Boolean matches(CommandLine cmd) {

@@ -5,11 +5,10 @@ import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
 
-public class MaskSearchArgsCreator extends ArgsCreator {
+public class MaskSearchArgsCreator extends SearchArgsCreator {
     public Boolean matches(CommandLine cmd) {
-        StringBuilder searchValue;
         if(cmd.hasOption(Constants.KEY_MACK)) {
-            searchValue = new StringBuilder(cmd.getOptionValue(Constants.OPTION_SEARCH));
+            String searchValue = cmd.getOptionValue(Constants.OPTION_SEARCH);
             return searchValue.charAt(0) == Constants.APOSTROPHE1;
         }
         return false;

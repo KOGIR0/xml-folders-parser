@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ArgsParser extends Options {
     private CommandLine args;
-    List<ArgsCreator> searchArgsCreators = new ArrayList<>();
+    List<SearchArgsCreator> searchArgsCreators = new ArrayList<>();
 
     public ArgsParser() {
         this.addFileOption();
@@ -26,7 +26,7 @@ public class ArgsParser extends Options {
     }
 
     public SearchArgs getSearchArgs() {
-        for(ArgsCreator creator: searchArgsCreators) {
+        for(SearchArgsCreator creator: searchArgsCreators) {
             if(creator.matches(this.args)) {
                 return creator.createSearchArgs(this.args);
             }

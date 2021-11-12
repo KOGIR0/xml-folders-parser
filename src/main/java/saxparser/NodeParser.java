@@ -1,6 +1,7 @@
 package saxparser;
 
 import comparer.Comparer;
+import fileprocessor.FileProcessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import constant.Constants;
@@ -15,8 +16,10 @@ public class NodeParser extends DefaultHandler {
     private Boolean currentIsFile = false;
 
     private Comparer comparer;
+    private FileProcessor fileProcessor;
 
     public void setComparer(Comparer comparer) { this.comparer = comparer; }
+    public void setFileProcessor(FileProcessor fileProcessor) { this.fileProcessor = fileProcessor; }
 
     @Override
     public void startElement(
@@ -41,15 +44,10 @@ public class NodeParser extends DefaultHandler {
         if(qName.equalsIgnoreCase(Constants.ACTIVE_NODE)) {
             if(this.currentIsFile) {
                 if(this.comparer.compare(this.currentValue.toString())) {
-                    StringBuilder path = new StringBuilder();
-                    this.currentPath.forEach((item) -> path.append(Constants.SPLIT_DIR).append(item));
-                    path.append(Constants.SPLIT_DIR).append(this.currentValue);
-                    System.out.println(path);
+                    this.fileProcessor.process(this.currentPath, this.currentValue.toString());
                 }
-            } else {
-                if(!this.currentValue.toString().equals(Constants.SPLIT_DIR)) {
-                    this.currentPath.add(this.currentValue.toString());
-                }
+            } else if(!this.currentValue.toString().equals(Constants.SPLIT_DIR)) {
+                this.currentPath.add(this.currentValue.toString());
             }
         }
 
