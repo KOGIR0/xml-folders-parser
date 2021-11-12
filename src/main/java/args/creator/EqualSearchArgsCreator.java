@@ -1,6 +1,7 @@
 package args.creator;
 
 import args.SearchArgs;
+import args.creator.SearchArgsCreator;
 import constant.Constants;
 import constant.SearchType;
 import org.apache.commons.cli.CommandLine;
