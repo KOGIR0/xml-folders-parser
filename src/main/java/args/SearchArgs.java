@@ -4,7 +4,7 @@ import constant.SearchType;
 
 public class SearchArgs {
     private String filePath, searchValue;
-    private SearchType st;
+    private SearchType searchType;
 
     public String getFilePath() {
         return filePath;
@@ -14,13 +14,25 @@ public class SearchArgs {
         return searchValue;
     }
 
-    public SearchArgs(String filePath, String searchValue, SearchType st) {
+    public SearchArgs(String filePath, String searchValue, SearchType searchType) {
         this.filePath = filePath;
         this.searchValue = searchValue;
-        this.st = st;
+        this.searchType = searchType;
+    }
+
+    public SearchArgs(String filePath) {
+        this.filePath = filePath;
+    }
+
+    public void setSearchValue(String searchValue) {
+        this.searchValue = searchValue;
+    }
+
+    public void setSearchType(SearchType searchType) {
+        this.searchType = searchType;
     }
 
     public SearchType getSearchType() {
-        return this.st;
+        return this.searchType;
     }
 }
