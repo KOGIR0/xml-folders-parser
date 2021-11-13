@@ -69,7 +69,7 @@ public class ParserTest {
     }
 
     @Test
-    public void wrongOption() {
+    public void wrongArg() {
         String[] args = {"-F", "src/test/resources/test-file1.xml", "-O", "file-776194140.xml"};
         Main.main(args);
         assertTrue(outContent.toString().contains("Unrecognized option"));
