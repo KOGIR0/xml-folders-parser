@@ -9,7 +9,7 @@ $ java -jar assembly.jar -f test-files.xml
 $ java -jar assignment.jar -f test-files.xml -s file-1498940214.xhtml
 
 ## output all files with java extention
-$ java -jar assignment.jar -f test-files.xml -s ‘.java’
+$ java -jar assignment.jar -f test-files.xml -s ‘*.java’
 
 ## find all files by regular expression
 $ java -jar assignment.jar -f test-files.xml -S .*?[a-z]{4}-\d+\.[a-z]+
