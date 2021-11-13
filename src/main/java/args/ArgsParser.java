@@ -19,15 +19,15 @@ public class ArgsParser extends Options {
     }
 
     public SearchArgs getSearchArgs() {
-        String filePath = args.getOptionValue(Constants.OPTION_FILE);
+        String filePath = args.getOptionValue(Constants.ARG_FILE);
         SearchArgs searchArgs = new SearchArgs(filePath);
 
         if(this.args.hasOption(Constants.KEY_MACK_REGULAR)) {
             // search by regex
-            searchArgs.setSearchValue(this.args.getOptionValue(Constants.OPTION_REGEX_SEARCH));
+            searchArgs.setSearchValue(this.args.getOptionValue(Constants.ARG_REGEX_SEARCH));
             searchArgs.setSearchType(SearchType.Regular);
         } else if(args.hasOption(Constants.KEY_MACK)) {
-            String searchValue = args.getOptionValue(Constants.OPTION_SEARCH);
+            String searchValue = args.getOptionValue(Constants.ARG_SEARCH);
 
             if(searchValue.charAt(0) == Constants.APOSTROPHE1) {
                 // search by mask

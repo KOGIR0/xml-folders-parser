@@ -1,9 +1,9 @@
 package constant;
 
 public class Constants {
-    public static final String OPTION_FILE = "file";
-    public static final String OPTION_REGEX_SEARCH = "Search";
-    public static final String OPTION_SEARCH = "search";
+    public static final String ARG_FILE = "file";
+    public static final String ARG_REGEX_SEARCH = "Search";
+    public static final String ARG_SEARCH = "search";
     public static final String KEY_MACK_REGULAR = "-S";
     public static final String KEY_MACK = "-s";
     public static final String IS_FILE = "is-file";
