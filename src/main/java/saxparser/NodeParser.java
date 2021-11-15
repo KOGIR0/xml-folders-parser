@@ -70,7 +70,7 @@ public class NodeParser extends DefaultHandler {
             if (this.comparator.compare(value)) {
                 this.fileProcessor.process(this.currentPath, value);
             }
-        } else if (!value.equals(Constants.SPLIT_DIR)) {
+        } else {
             this.currentPath.add(value);
         }
     }
