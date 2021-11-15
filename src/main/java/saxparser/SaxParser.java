@@ -13,7 +13,7 @@ import javax.xml.parsers.SAXParserFactory;
 import java.io.IOException;
 
 public class SaxParser {
-    public void parse(SearchArgs so) throws ParserConfigurationException, SAXException, IOException {
+    public void parse(SearchArgs searchArgs) throws ParserConfigurationException, SAXException, IOException {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         factory.setValidating(true);
         factory.setNamespaceAware(false);
@@ -21,13 +21,13 @@ public class SaxParser {
 
         NodeParser nodeParser = new NodeParser();
 
-        Comparator comparator = CompatorFactory.getComparer(so.getSearchType());
-        comparator.setCompareValue(so.getSearchValue());
+        Comparator comparator = CompatorFactory.getComparer(searchArgs.getSearchType());
+        comparator.setCompareValue(searchArgs.getSearchValue());
         nodeParser.setComparator(comparator);
 
         FileProcessor fileProcessor = new PrintFileProcessor();
         nodeParser.setFileProcessor(fileProcessor);
 
-        parser.parse(so.getFilePath(), nodeParser);
+        parser.parse(searchArgs.getFilePath(), nodeParser);
     }
 }
