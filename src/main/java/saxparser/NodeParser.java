@@ -1,6 +1,6 @@
 package saxparser;
 
-import comparer.Comparer;
+import comparer.Comparator;
 import fileprocessor.FileProcessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,10 +15,10 @@ public class NodeParser extends DefaultHandler {
     private List<String> currentPath = new ArrayList<>();
     private Boolean currentIsFile = false;
 
-    private Comparer comparer;
+    private Comparator comparer;
     private FileProcessor fileProcessor;
 
-    public void setComparer(Comparer comparer) { this.comparer = comparer; }
+    public void setComparer(Comparator comparer) { this.comparer = comparer; }
     public void setFileProcessor(FileProcessor fileProcessor) { this.fileProcessor = fileProcessor; }
 
     @Override

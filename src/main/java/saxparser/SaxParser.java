@@ -1,6 +1,6 @@
 package saxparser;
 
-import comparer.Comparer;
+import comparer.Comparator;
 import comparer.ComparerFactory;
 import fileprocessor.FileProcessor;
 import fileprocessor.PrintFileProcessor;
@@ -21,7 +21,7 @@ public class SaxParser {
 
         NodeParser nodeParser = new NodeParser();
 
-        Comparer comparer = ComparerFactory.getComparer(so.getSearchType());
+        Comparator comparer = ComparerFactory.getComparer(so.getSearchType());
         comparer.setCompareValue(so.getSearchValue());
         nodeParser.setComparer(comparer);
 

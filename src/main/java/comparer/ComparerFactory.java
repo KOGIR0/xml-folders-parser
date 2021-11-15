@@ -3,7 +3,7 @@ package comparer;
 import constant.SearchType;
 
 public class ComparerFactory {
-    public static Comparer getComparer(SearchType type) {
+    public static Comparator getComparer(SearchType type) {
         switch(type) {
             case Full -> { return new FullComparer(); }
             case Equals -> { return new ExactComparer(); }

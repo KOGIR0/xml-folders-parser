@@ -1,6 +1,6 @@
 package comparer;
 
-public class LambdaComparer extends Comparer {
+public class LambdaComparer extends Comparator {
     private Comparer comparer;
 
     public LambdaComparer(Comparer comparer) {
