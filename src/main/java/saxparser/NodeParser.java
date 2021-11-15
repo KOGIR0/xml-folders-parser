@@ -15,10 +15,10 @@ public class NodeParser extends DefaultHandler {
     private List<String> currentPath = new ArrayList<>();
     private Boolean currentIsFile = false;
 
-    private Comparator comparer;
+    private Comparator comparator;
     private FileProcessor fileProcessor;
 
-    public void setComparer(Comparator comparer) { this.comparer = comparer; }
+    public void setComparator(Comparator comparator) { this.comparator = comparator; }
     public void setFileProcessor(FileProcessor fileProcessor) { this.fileProcessor = fileProcessor; }
 
     @Override
@@ -43,7 +43,7 @@ public class NodeParser extends DefaultHandler {
 
         if(qName.equalsIgnoreCase(Constants.ACTIVE_NODE)) {
             if(this.currentIsFile) {
-                if(this.comparer.compare(this.currentValue.toString())) {
+                if(this.comparator.compare(this.currentValue.toString())) {
                     this.fileProcessor.process(this.currentPath, this.currentValue.toString());
                 }
             } else if(!this.currentValue.toString().equals(Constants.SPLIT_DIR)) {
