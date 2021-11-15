@@ -32,6 +32,7 @@ public class ArgsParser extends Options {
             if(searchValue.charAt(0) == Constants.APOSTROPHE1) {
                 // search by mask
                 searchValue = searchValue.substring(1, searchValue.length() - 1);
+                searchValue = searchValue.replace(".", "\\.");
                 searchValue = searchValue.replace("*", ".*");
                 searchValue = searchValue.replace("?", ".");
 
