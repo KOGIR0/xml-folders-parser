@@ -11,9 +11,9 @@ import java.util.List;
 
 public class NodeParser extends DefaultHandler {
 
-    private StringBuilder currentValue = new StringBuilder();
     private List<String> currentPath = new ArrayList<>();
     private Boolean currentIsFile = false;
+    private Boolean isActive = false;
 
     private Comparator comparator;
     private FileProcessor fileProcessor;
@@ -28,7 +28,9 @@ public class NodeParser extends DefaultHandler {
             String qName,
             Attributes attribute) {
 
-        currentValue.setLength(0);
+        if(qName.equalsIgnoreCase(Constants.ACTIVE_NODE)) {
+            this.isActive = true;
+        }
 
         if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
             this.currentIsFile = Boolean.valueOf(attribute.getValue(Constants.IS_FILE));
@@ -42,13 +44,7 @@ public class NodeParser extends DefaultHandler {
             String qName) {
 
         if(qName.equalsIgnoreCase(Constants.ACTIVE_NODE)) {
-            if(this.currentIsFile) {
-                if(this.comparator.compare(this.currentValue.toString())) {
-                    this.fileProcessor.process(this.currentPath, this.currentValue.toString());
-                }
-            } else if(!this.currentValue.toString().equals(Constants.SPLIT_DIR)) {
-                this.currentPath.add(this.currentValue.toString());
-            }
+            this.isActive = false;
         }
 
         if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
@@ -62,6 +58,20 @@ public class NodeParser extends DefaultHandler {
 
     @Override
     public void characters(char ch[], int start, int length) {
-        currentValue.append(ch, start, length);
+        if(this.isActive) {
+            String currentValue = new String(ch).substring(start, start + length);
+            this.processActiveNodeValue(currentValue);
+        }
+    }
+
+    private void processActiveNodeValue(String value)
+    {
+        if (this.currentIsFile) {
+            if (this.comparator.compare(value)) {
+                this.fileProcessor.process(this.currentPath, value);
+            }
+        } else if (!value.equals(Constants.SPLIT_DIR)) {
+            this.currentPath.add(value);
+        }
     }
 }
