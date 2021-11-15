@@ -27,44 +27,68 @@ public class ParserTest {
     public void fullSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml"};
         Main.main(args);
-        List<String> expected = List.of("/file-776194140.xml",
+
+        List<String> expectedOutput = List.of("/file-776194140.xml",
                 "/dir-880176375/file-1073842118.java",
                 "/dir-880176375/dir-2145307015/file-1498940214.xhtml"
         );
-        assertEquals(expected, outContent.toString().lines().toList());
+        List<String> actualOutput = outContent.toString().lines().toList();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
     public void regexSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-S", ".*?[a-z]{4}-\\d+\\.[a-z]+"};
         Main.main(args);
-        List<String> expected = List.of("/file-776194140.xml",
+
+        List<String> expectedOutput = List.of("/file-776194140.xml",
                 "/dir-880176375/file-1073842118.java",
                 "/dir-880176375/dir-2145307015/file-1498940214.xhtml"
         );
-        assertEquals(expected, outContent.toString().lines().toList());
+        List<String> actualOutput = outContent.toString().lines().toList();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
     public void exactSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-776194140.xml"};
         Main.main(args);
-        List<String> expected = List.of("/file-776194140.xml");
-        assertEquals(expected, outContent.toString().lines().toList());
+
+        List<String> expectedOutput = List.of("/file-776194140.xml");
+        List<String> actualOutput = outContent.toString().lines().toList();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
     public void maskSearch() {
         String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "`*.java`"};
         Main.main(args);
-        List<String> expected = List.of("/dir-880176375/file-1073842118.java");
-        assertEquals(expected, outContent.toString().lines().toList());
+
+        List<String> expectedOutput = List.of("/dir-880176375/file-1073842118.java");
+        List<String> actualOutput = outContent.toString().lines().toList();
+
+        assertEquals(expectedOutput, actualOutput);
+    }
+
+    @Test
+    public void noFileFoundSearch() {
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-107384218.java"};
+        Main.main(args);
+
+        String expectedOutput = "";
+        String actualOutput = outContent.toString();
+
+        assertEquals(expectedOutput, actualOutput);
     }
 
     @Test
     public void noArgs() {
         String[] args = {};
         Main.main(args);
+
         assertTrue(outContent.toString().contains("Missing required option: f"));
     }
 
@@ -72,6 +96,7 @@ public class ParserTest {
     public void wrongArg() {
         String[] args = {"-F", "src/test/resources/test-file1.xml", "-O", "file-776194140.xml"};
         Main.main(args);
+
         assertTrue(outContent.toString().contains("Unrecognized option"));
     }
 }
