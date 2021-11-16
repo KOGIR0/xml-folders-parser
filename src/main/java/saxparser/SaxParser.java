@@ -1,7 +1,7 @@
 package saxparser;
 
-import comparer.Comparator;
-import comparer.CompatorFactory;
+import comparator.Comparator;
+import comparator.CompatorFactory;
 import fileprocessor.FileProcessor;
 import fileprocessor.PrintFileProcessor;
 import org.xml.sax.SAXException;

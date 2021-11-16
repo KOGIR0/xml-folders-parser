@@ -1,4 +1,4 @@
-package comparer;
+package comparator;
 
 public abstract class Comparator {
     protected String searchValue;

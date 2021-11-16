@@ -1,4 +1,4 @@
-package comparer;
+package comparator;
 
 public class LambdaComparator extends Comparator {
     private Comparer comparer;

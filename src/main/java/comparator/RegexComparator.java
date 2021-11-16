@@ -1,4 +1,4 @@
-package comparer;
+package comparator;
 
 public class RegexComparator extends Comparator {
     @Override

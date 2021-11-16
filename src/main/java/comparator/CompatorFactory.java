@@ -1,4 +1,4 @@
-package comparer;
+package comparator;
 
 import constant.SearchType;
 

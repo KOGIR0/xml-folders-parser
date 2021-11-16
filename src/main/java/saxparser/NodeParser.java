@@ -1,6 +1,6 @@
 package saxparser;
 
-import comparer.Comparator;
+import comparator.Comparator;
 import fileprocessor.FileProcessor;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;

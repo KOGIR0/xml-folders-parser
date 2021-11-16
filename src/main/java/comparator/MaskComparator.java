@@ -1,4 +1,4 @@
-package comparer;
+package comparator;
 
 public class MaskComparator extends Comparator {
     @Override
