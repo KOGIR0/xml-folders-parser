@@ -1,9 +1,9 @@
 package comparator;
 
 import constant.Constants;
-import fileprocessor.FileProcessor;
+import pathprocessor.PathProcessor;
 
-public abstract class Comparator extends FileProcessor {
+public abstract class Comparator extends PathProcessor {
     protected String searchValue;
 
     public void store(String value) {
@@ -16,7 +16,7 @@ public abstract class Comparator extends FileProcessor {
         }
     }
 
-    public void process(String filename) {
+    private void process(String filename) {
         StringBuilder path = new StringBuilder(currentPath.get(0));
         for(int i = 1; i < currentPath.size(); i++) {
             path.append(currentPath.get(i)).append(Constants.SPLIT_DIR);

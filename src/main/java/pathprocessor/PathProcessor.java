@@ -1,16 +1,13 @@
-package fileprocessor;
-
-import constant.Constants;
+package pathprocessor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class FileProcessor {
+public abstract class PathProcessor {
     public Boolean isFile = false;
     public List<String> currentPath = new ArrayList<>();
 
     public abstract void store(String value);
-    public abstract void process(String filename);
 
     public void setIsFile(Boolean isFile) {
         this.isFile = isFile;
