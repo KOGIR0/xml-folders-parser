@@ -6,20 +6,12 @@ import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import constant.Constants;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class NodeParser extends DefaultHandler {
 
-    private List<String> currentPath = new ArrayList<>();
-    private Boolean currentIsFile = false;
     private Boolean isActive = false;
-
     private Comparator comparator;
-    private FileProcessor fileProcessor;
 
     public void setComparator(Comparator comparator) { this.comparator = comparator; }
-    public void setFileProcessor(FileProcessor fileProcessor) { this.fileProcessor = fileProcessor; }
 
     @Override
     public void startElement(
@@ -33,7 +25,8 @@ public class NodeParser extends DefaultHandler {
         }
 
         if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
-            this.currentIsFile = Boolean.valueOf(attribute.getValue(Constants.IS_FILE));
+            Boolean isFile = Boolean.valueOf(attribute.getValue(Constants.IS_FILE));
+            this.comparator.setIsFile(isFile);
         }
     }
 
@@ -48,11 +41,7 @@ public class NodeParser extends DefaultHandler {
         }
 
         if(qName.equalsIgnoreCase(Constants.INCLUDE_NODE)) {
-            if(!this.currentIsFile) {
-                this.currentPath.remove(this.currentPath.size() - 1);
-            } else {
-                this.currentIsFile = false;
-            }
+            this.comparator.leaveDir();
         }
     }
 
@@ -60,18 +49,7 @@ public class NodeParser extends DefaultHandler {
     public void characters(char ch[], int start, int length) {
         if(this.isActive) {
             String currentValue = new String(ch).substring(start, start + length);
-            this.processActiveNodeValue(currentValue);
-        }
-    }
-
-    private void processActiveNodeValue(String value)
-    {
-        if (this.currentIsFile) {
-            if (this.comparator.compare(value)) {
-                this.fileProcessor.process(this.currentPath, value);
-            }
-        } else {
-            this.currentPath.add(value);
+            this.comparator.store(currentValue);
         }
     }
 }

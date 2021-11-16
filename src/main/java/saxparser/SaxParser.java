@@ -2,8 +2,6 @@ package saxparser;
 
 import comparator.Comparator;
 import comparator.CompatorFactory;
-import fileprocessor.FileProcessor;
-import fileprocessor.PrintFileProcessor;
 import org.xml.sax.SAXException;
 import args.SearchArgs;
 
@@ -24,9 +22,6 @@ public class SaxParser {
         Comparator comparator = CompatorFactory.getComparer(searchArgs.getSearchType());
         comparator.setCompareValue(searchArgs.getSearchValue());
         nodeParser.setComparator(comparator);
-
-        FileProcessor fileProcessor = new PrintFileProcessor();
-        nodeParser.setFileProcessor(fileProcessor);
 
         parser.parse(searchArgs.getFilePath(), nodeParser);
     }
