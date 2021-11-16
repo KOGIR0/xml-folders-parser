@@ -53,10 +53,10 @@ public class ParserTest {
 
     @Test
     public void exactSearch() {
-        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-776194140.xml"};
+        String[] args = {"-f", "src/test/resources/test-file1.xml", "-s", "file-1498940214.xhtml"};
         Main.main(args);
 
-        List<String> expectedOutput = List.of("/file-776194140.xml");
+        List<String> expectedOutput = List.of("/dir-880176375/dir-2145307015/file-1498940214.xhtml");
         List<String> actualOutput = outContent.toString().lines().toList();
 
         assertEquals(expectedOutput, actualOutput);
